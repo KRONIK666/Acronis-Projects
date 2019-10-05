@@ -11,26 +11,6 @@ namespace AcronisCyberCloudAPI
         {
             public Item[] items { get; set; }
 
-            public string GetRootTenant(string username, string password, string id)
-            {
-                string url = "https://eu2-cloud.acronis.com:443/api/2/tenants?uuids=" + id;
-                string credentials = username + ":" + password;
-                credentials = Convert.ToBase64String(Encoding.Default.GetBytes(credentials));
-
-                WebRequest request = WebRequest.Create(url);
-                request.Headers["Authorization"] = "Basic " + credentials;
-                request.PreAuthenticate = true;
-                request.Method = "GET";
-                request.ContentType = "application/json";
-
-                WebResponse response = request.GetResponse();
-                StreamReader reader = new StreamReader(response.GetResponseStream());
-                string responseFromServer = reader.ReadToEnd();
-                response.Close();
-
-                return responseFromServer;
-            }
-
             public class Item
             {
                 public string parent_id { get; set; }
@@ -70,6 +50,26 @@ namespace AcronisCyberCloudAPI
                 public object zipcode { get; set; }
                 public object phone { get; set; }
                 public string lastname { get; set; }
+            }
+
+            public string GetRootTenant(string username, string password, string id)
+            {
+                string url = "https://eu2-cloud.acronis.com:443/api/2/tenants?uuids=" + id;
+                string credentials = username + ":" + password;
+                credentials = Convert.ToBase64String(Encoding.Default.GetBytes(credentials));
+
+                WebRequest request = WebRequest.Create(url);
+                request.Headers["Authorization"] = "Basic " + credentials;
+                request.PreAuthenticate = true;
+                request.Method = "GET";
+                request.ContentType = "application/json";
+
+                WebResponse response = request.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                string responseFromServer = reader.ReadToEnd();
+                response.Close();
+
+                return responseFromServer;
             }
         }
     }

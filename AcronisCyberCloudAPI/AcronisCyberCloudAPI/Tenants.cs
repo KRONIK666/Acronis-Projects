@@ -17,7 +17,7 @@ namespace AcronisCyberCloudAPI
             public object internal_tag { get; set; }
             public string language { get; set; }
 
-            public void PostTenant(string username, string password, string postData)
+            public string PostTenant(string username, string password, string postData)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/tenants";
                 string credentials = username + ":" + password;
@@ -38,8 +38,12 @@ namespace AcronisCyberCloudAPI
                     dataStream.Close();
                 }
 
-                WebResponse postResponse = request.GetResponse();
-                postResponse.Close();
+                WebResponse response = request.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                string responseFromServer = reader.ReadToEnd();
+                response.Close();
+
+                return responseFromServer;
             }
         }
 

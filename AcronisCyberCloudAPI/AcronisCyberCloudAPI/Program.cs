@@ -2,9 +2,11 @@
 using System;
 using System.IO;
 using System.Net;
+using static AcronisCyberCloudAPI.Applications;
 using static AcronisCyberCloudAPI.Instance;
 using static AcronisCyberCloudAPI.InstanceUser;
 using static AcronisCyberCloudAPI.Tenants;
+using static AcronisCyberCloudAPI.TenantsInfo;
 
 namespace AcronisCyberCloudAPI
 {
@@ -38,7 +40,23 @@ namespace AcronisCyberCloudAPI
             partnerTenant.parent_id = rootTenant.items[0].id;
 
             string postData = JsonConvert.SerializeObject(partnerTenant);
-            partnerTenant.PostTenant(username, password, postData);
+            string partnerTenantInfo = partnerTenant.PostTenant(username, password, postData);
+
+            TenantInfo createdTenant = new TenantInfo();
+            createdTenant = JsonConvert.DeserializeObject<TenantInfo>(partnerTenantInfo);
+
+            Application applications = new Application();
+            string applicationsInfo = applications.GetApplicationsInfo(username, password);
+            applications = JsonConvert.DeserializeObject<Application>(applicationsInfo);
+
+            if (applications.items[0].name == "Backup")
+            {
+                createdTenant.EnableApplication(username, password, applications.items[0].id, createdTenant.id);
+            }
+            if (applications.items[0].name == "File Sync & Share")
+            {
+                createdTenant.DisableApplication(username, password, applications.items[0].id, createdTenant.id);
+            }
         }
     }
 }
