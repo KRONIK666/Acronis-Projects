@@ -1,0 +1,31 @@
+{
+  "language": "en",
+  "idp_id": "11111111-1111-1111-1111-111111111111",
+  "activated": true,
+  "tenant_id": "979258c6-94d9-420e-8179-d91d0a97ca45",
+  "version": 3,
+  "terms_accepted": true,
+  "login": "ivaylo.tsvetkov-EU2",
+  "notifications": [
+    "quota",
+    "reports",
+    "backup_daily_report"
+  ],
+  "business_types": [],
+  "personal_tenant_id": null,
+  "created_at": "2019-09-30T12:20:03+00:00",
+  "enabled": true,
+  "contact": {
+    "city": null,
+    "state": null,
+    "country": null,
+    "address1": null,
+    "address2": null,
+    "firstname": "",
+    "email": "kronik@abv.bg",
+    "zipcode": null,
+    "phone": null,
+    "lastname": ""
+  },
+  "id": "15b580cb-fcc8-4c2a-89a0-b4b4300e63b1"
+}
