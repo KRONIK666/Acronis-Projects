@@ -51,11 +51,16 @@ namespace AcronisCyberCloudAPI
             string applicationsInfo = applications.GetApplicationsInfo(username, password);
             applications = JsonConvert.DeserializeObject<Application>(applicationsInfo);
 
+            string activatedApplications = "{\"items\": [";
+            string tempApp;
+
             for (int i = 0; i < applications.items.Length; i++)
             {
                 if (applications.items[i].name == "Backup")
                 {
                     createdTenant.EnableApplication(username, password, applications.items[i].id, createdTenant.id);
+                    tempApp = JsonConvert.SerializeObject(applications.items[i]);
+                    activatedApplications = activatedApplications + tempApp + ",";
                 }
                 else if (applications.items[i].name == "File Sync & Share")
                 {
@@ -63,10 +68,16 @@ namespace AcronisCyberCloudAPI
                 }
             }
 
+            activatedApplications = activatedApplications.Remove(activatedApplications.Length - 1);
+            activatedApplications = activatedApplications + "]}";
+
             string offeringJson = File.ReadAllText("templates/offering_items.json");
 
             OfferingItems offeringItems = new OfferingItems();
             offeringItems = JsonConvert.DeserializeObject<OfferingItems>(offeringJson);
+
+            string activatedOfferingItems = "{\"offering_items\": [";
+            string temp;
 
             for (int i = 0; i < offeringItems.offering_items.Length; i++)
             {
@@ -74,7 +85,15 @@ namespace AcronisCyberCloudAPI
                 {
                     offeringItems.offering_items[i].status = 0;
                 }
+                else
+                {
+                    temp = JsonConvert.SerializeObject(offeringItems.offering_items[i]);
+                    activatedOfferingItems = activatedOfferingItems + temp + ",";
+                }
             }
+
+            activatedOfferingItems = activatedOfferingItems.Remove(activatedOfferingItems.Length - 1);
+            activatedOfferingItems = activatedOfferingItems + "]}";
 
             string putData = JsonConvert.SerializeObject(offeringItems);
             offeringItems.EnableOfferingItems(username, password, createdTenant.id, putData);
@@ -85,8 +104,8 @@ namespace AcronisCyberCloudAPI
             partnerUser = JsonConvert.DeserializeObject<User>(newPartnerUser);
             partnerUser.tenant_id = createdTenant.id;
 
-            string postUserData = JsonConvert.SerializeObject(partnerUser);
-            string partnerUserInfo = partnerUser.PostUser(username, password, postUserData);
+            postData = JsonConvert.SerializeObject(partnerUser);
+            string partnerUserInfo = partnerUser.PostUser(username, password, postData);
 
             UserInfo createdPartnerUser = new UserInfo();
             createdPartnerUser = JsonConvert.DeserializeObject<UserInfo>(partnerUserInfo);
@@ -99,8 +118,54 @@ namespace AcronisCyberCloudAPI
             partnerUserRole.items[0].tenant_id = createdPartnerUser.tenant_id;
             partnerUserRole.items[0].role_id = "partner_admin";
 
-            string putUserData = JsonConvert.SerializeObject(partnerUserRole);
-            partnerUserRole.PutAccessPolicies(username, password, createdPartnerUser.id, putUserData);
+            putData = JsonConvert.SerializeObject(partnerUserRole);
+            partnerUserRole.PutAccessPolicies(username, password, createdPartnerUser.id, putData);
+
+            Tenant customerTenant = new Tenant();
+            customerTenant = JsonConvert.DeserializeObject<Tenant>(newTenantJson);
+            customerTenant.name = "End-User";
+            customerTenant.kind = "customer";
+            customerTenant.parent_id = createdTenant.id;
+
+            postData = JsonConvert.SerializeObject(customerTenant);
+            string customerTenantInfo = customerTenant.PostTenant(username, password, postData);
+            createdTenant = JsonConvert.DeserializeObject<TenantInfo>(customerTenantInfo);
+
+            applications = JsonConvert.DeserializeObject<Application>(activatedApplications);
+
+            for (int i = 0; i < applications.items.Length; i++)
+            {
+                createdTenant.EnableApplication(username, password, applications.items[i].id, createdTenant.id);
+            }
+
+            offeringItems.EnableOfferingItems(username, password, createdTenant.id, activatedOfferingItems);
+
+            string newBackupUser = File.ReadAllText("templates/backup_user.json");
+
+            User backupUser = new User();
+            backupUser = JsonConvert.DeserializeObject<User>(newBackupUser);
+            backupUser.tenant_id = createdTenant.id;
+            backupUser.contact.email = "backup.user@users.com";
+            backupUser.login = backupUser.contact.email;
+            backupUser.contact.firstname = "Backup";
+            backupUser.contact.lastname = "User";
+
+            postData = JsonConvert.SerializeObject(backupUser);
+            partnerUserInfo = partnerUser.PostUser(username, password, postData);
+
+            UserInfo createdBackupUser = new UserInfo();
+            createdBackupUser = JsonConvert.DeserializeObject<UserInfo>(partnerUserInfo);
+
+            Roles backupUserRole = new Roles();
+            backupUserRole = JsonConvert.DeserializeObject<Roles>(newPartnerRole);
+            backupUserRole.items[0].trustee_id = createdBackupUser.id;
+            backupUserRole.items[0].tenant_id = createdBackupUser.tenant_id;
+            backupUserRole.items[0].role_id = "backup_user";
+            backupUserRole.items[0].trustee_type = "user";
+            backupUserRole.items[0].version = 0;
+
+            putData = JsonConvert.SerializeObject(backupUserRole);
+            backupUserRole.PutAccessPolicies(username, password, createdBackupUser.id, putData);
         }
     }
 }
