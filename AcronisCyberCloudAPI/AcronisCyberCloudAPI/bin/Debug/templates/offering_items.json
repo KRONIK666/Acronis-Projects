@@ -1,0 +1,19 @@
+{
+  "offering_items": [
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "vms",
+      "status": 1,
+      "quota": {
+        "value": 10,
+        "overage": 10,
+        "version": 1486479690324
+      }
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "workstations",
+      "status": 1
+    }
+  ]
+}

@@ -49,14 +49,25 @@ namespace AcronisCyberCloudAPI
             string applicationsInfo = applications.GetApplicationsInfo(username, password);
             applications = JsonConvert.DeserializeObject<Application>(applicationsInfo);
 
-            if (applications.items[0].name == "Backup")
+            for (int i = 0; i <= 5; i++)
             {
-                createdTenant.EnableApplication(username, password, applications.items[0].id, createdTenant.id);
+                if (applications.items[i].name == "Backup")
+                {
+                    createdTenant.EnableApplication(username, password, applications.items[i].id, createdTenant.id);
+                }
+                else if (applications.items[i].name == "File Sync & Share")
+                {
+                    createdTenant.DisableApplication(username, password, applications.items[i].id, createdTenant.id);
+                }
             }
-            if (applications.items[0].name == "File Sync & Share")
-            {
-                createdTenant.DisableApplication(username, password, applications.items[0].id, createdTenant.id);
-            }
+
+            string offeringJson = File.ReadAllText("templates/offering_items.json");
+
+            OfferingItems offeringItems = new OfferingItems();
+            offeringItems = JsonConvert.DeserializeObject<OfferingItems>(offeringJson);
+
+            string putData = JsonConvert.SerializeObject(offeringItems);
+            offeringItems.EnableOfferingItems(username, password, createdTenant.id, putData);
         }
     }
 }
