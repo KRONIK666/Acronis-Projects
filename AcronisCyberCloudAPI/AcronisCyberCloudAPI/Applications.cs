@@ -76,14 +76,6 @@ namespace AcronisCyberCloudAPI
             public string application_id { get; set; }
             public string name { get; set; }
             public int status { get; set; }
-            public Quota quota { get; set; }
-        }
-
-        public class Quota
-        {
-            public int value { get; set; }
-            public int overage { get; set; }
-            public long version { get; set; }
         }
     }
 }

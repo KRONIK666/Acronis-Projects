@@ -49,7 +49,7 @@ namespace AcronisCyberCloudAPI
             string applicationsInfo = applications.GetApplicationsInfo(username, password);
             applications = JsonConvert.DeserializeObject<Application>(applicationsInfo);
 
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i < applications.items.Length; i++)
             {
                 if (applications.items[i].name == "Backup")
                 {
@@ -65,6 +65,14 @@ namespace AcronisCyberCloudAPI
 
             OfferingItems offeringItems = new OfferingItems();
             offeringItems = JsonConvert.DeserializeObject<OfferingItems>(offeringJson);
+
+            for (int i = 0; i < offeringItems.offering_items.Length; i++)
+            {
+                if (offeringItems.offering_items[i].name.Contains("o365"))
+                {
+                    offeringItems.offering_items[i].status = 0;
+                }
+            }
 
             string putData = JsonConvert.SerializeObject(offeringItems);
             offeringItems.EnableOfferingItems(username, password, createdTenant.id, putData);

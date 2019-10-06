@@ -2,17 +2,77 @@
   "offering_items": [
     {
       "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
-      "name": "vms",
-      "status": 1,
-      "quota": {
-        "value": 10,
-        "overage": 10,
-        "version": 1486479690324
-      }
+      "name": "workstations",
+      "status": 1
     },
     {
       "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
-      "name": "workstations",
+      "name": "servers",
+      "status": 1
+    },
+	{
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "virtualhosts",
+      "status": 1
+    },
+	{
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "vms",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "mobiles",
+      "status": 1
+    },
+	{
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "o365_mailboxes",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "o365_onedrive",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "o365_sharepoint_sites",
+      "status": 1
+    },
+	{
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "gsuite_seats",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "google_mail",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "google_drive",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "google_team_drive",
+      "status": 1
+    },
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "web_hosting_servers",
+      "status": 1
+	},
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "websites",
+      "status": 1
+	},
+    {
+      "application_id": "6e6d758d-8e74-3ae3-ac84-50eb0dff12eb",
+      "name": "local_storage",
       "status": 1
     }
   ]
