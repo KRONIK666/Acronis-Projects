@@ -7,6 +7,8 @@ using static AcronisCyberCloudAPI.Instance;
 using static AcronisCyberCloudAPI.InstanceUser;
 using static AcronisCyberCloudAPI.Tenants;
 using static AcronisCyberCloudAPI.TenantsInfo;
+using static AcronisCyberCloudAPI.Users;
+using static AcronisCyberCloudAPI.UsersInfo;
 
 namespace AcronisCyberCloudAPI
 {
@@ -76,6 +78,29 @@ namespace AcronisCyberCloudAPI
 
             string putData = JsonConvert.SerializeObject(offeringItems);
             offeringItems.EnableOfferingItems(username, password, createdTenant.id, putData);
+
+            string newPartnerUser = File.ReadAllText("templates/user.json");
+
+            User partnerUser = new User();
+            partnerUser = JsonConvert.DeserializeObject<User>(newPartnerUser);
+            partnerUser.tenant_id = createdTenant.id;
+
+            string postUserData = JsonConvert.SerializeObject(partnerUser);
+            string partnerUserInfo = partnerUser.PostUser(username, password, postUserData);
+
+            UserInfo createdPartnerUser = new UserInfo();
+            createdPartnerUser = JsonConvert.DeserializeObject<UserInfo>(partnerUserInfo);
+
+            string newPartnerRole = File.ReadAllText("templates/user_roles.json");
+
+            Roles partnerUserRole = new Roles();
+            partnerUserRole = JsonConvert.DeserializeObject<Roles>(newPartnerRole);
+            partnerUserRole.items[0].trustee_id = createdPartnerUser.id;
+            partnerUserRole.items[0].tenant_id = createdPartnerUser.tenant_id;
+            partnerUserRole.items[0].role_id = "partner_admin";
+
+            string putUserData = JsonConvert.SerializeObject(partnerUserRole);
+            partnerUserRole.PutAccessPolicies(username, password, createdPartnerUser.id, putUserData);
         }
     }
 }
