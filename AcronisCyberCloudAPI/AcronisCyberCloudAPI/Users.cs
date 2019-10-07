@@ -7,7 +7,6 @@ namespace AcronisCyberCloudAPI
 {
     public class Users
     {
-
         public class User
         {
             public object tenant_id { get; set; }
@@ -18,6 +17,7 @@ namespace AcronisCyberCloudAPI
             public string[] business_types { get; set; }
             public string[] notifications { get; set; }
 
+            // POST method that creates a new user and returns the response output.
             public string PostUser(string username, string password, string postData)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/users";
@@ -66,6 +66,7 @@ namespace AcronisCyberCloudAPI
         {
             public Item[] items { get; set; }
 
+            // PUT method that configures the user role and access policies.
             public void PutAccessPolicies(string username, string password, string id, string putData)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/users/" + id + "/access_policies";

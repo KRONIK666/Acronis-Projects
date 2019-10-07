@@ -52,6 +52,7 @@ namespace AcronisCyberCloudAPI
                 public string lastname { get; set; }
             }
 
+            // GET method that gets the root tenant information and returns the response output.
             public string GetRootTenant(string username, string password, string id)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/tenants?uuids=" + id;

@@ -24,6 +24,7 @@ namespace AcronisCyberCloudAPI
             public Contact contact { get; set; }
             public string id { get; set; }
 
+            // GET method that takes the instace admin user's info and returns it in the reponse output.
             public string GetAdminUserInfo(string username, string password)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/users/me";

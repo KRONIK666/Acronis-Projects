@@ -17,6 +17,7 @@ namespace AcronisCyberCloudAPI
             public object internal_tag { get; set; }
             public string language { get; set; }
 
+            // POST method that creates a new tenant and returns the response output.
             public string PostTenant(string username, string password, string postData)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/tenants";

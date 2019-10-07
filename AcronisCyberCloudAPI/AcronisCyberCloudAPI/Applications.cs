@@ -11,6 +11,7 @@ namespace AcronisCyberCloudAPI
         {
             public Item[] items { get; set; }
 
+            // GET method that takes the information of all applications and returns the response output.
             public string GetApplicationsInfo(string username, string password)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/applications";
@@ -45,6 +46,7 @@ namespace AcronisCyberCloudAPI
         {
             public Offering_Items[] offering_items { get; set; }
 
+            // PUT method that enables the offering items for a specific application, specified by id.
             public void EnableOfferingItems(string username, string password, string id, string putData)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/tenants/" + id + "/offering_items";

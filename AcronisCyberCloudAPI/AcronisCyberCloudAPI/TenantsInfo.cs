@@ -27,6 +27,7 @@ namespace AcronisCyberCloudAPI
             public Contact contact { get; set; }
             public string id { get; set; }
 
+            // GET method that gets a tenant's information by specified id and returns the response output.
             public string GetTenant(string username, string password, string id)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/tenants/" + id;
@@ -47,6 +48,7 @@ namespace AcronisCyberCloudAPI
                 return responseFromServer;
             }
 
+            // POST method that enables an application specified by application and tenants ids.
             public void EnableApplication(string username, string password, string appId, string id)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/applications/" + appId + "/bindings/tenants/" + id;
@@ -63,6 +65,7 @@ namespace AcronisCyberCloudAPI
                 response.Close();
             }
 
+            // DELETE method that disables an application specified by application and tenants ids.
             public void DisableApplication(string username, string password, string appId, string id)
             {
                 string url = "https://eu2-cloud.acronis.com:443/api/2/applications/" + appId + "/bindings/tenants/" + id;
