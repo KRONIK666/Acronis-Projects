@@ -1,0 +1,24 @@
+{
+  "tenant_id": null,
+  "login": null,
+  "contact": {
+    "email": null,
+    "address1": "462 Nadezhda",
+    "address2": "",
+    "country": "Bulgaria",
+    "state": "SF",
+    "zipcode": "1000",
+    "city": "Sofia",
+    "phone": "0898123456",
+    "firstname": null,
+    "lastname": null
+  },
+  "enabled": true,
+  "language": "en",
+  "business_types": [],
+  "notifications": [
+    "quota",
+    "reports",
+    "backup_daily_report"
+  ]
+}
