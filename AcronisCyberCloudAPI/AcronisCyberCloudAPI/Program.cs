@@ -33,7 +33,7 @@ namespace AcronisCyberCloudAPI
             string rootTenantInfo = rootTenant.GetRootTenant(username, password, rootTenantId);
             rootTenant = JsonConvert.DeserializeObject<RootTenant>(rootTenantInfo);
 
-            string newTenantJson = File.ReadAllText("templates/tenants.json");
+            string newTenantJson = File.ReadAllText("../../../templates/tenants.json");
 
             Tenant partnerTenant = new Tenant();
             partnerTenant = JsonConvert.DeserializeObject<Tenant>(newTenantJson);
@@ -71,7 +71,7 @@ namespace AcronisCyberCloudAPI
             activatedApplications = activatedApplications.Remove(activatedApplications.Length - 1);
             activatedApplications = activatedApplications + "]}";
 
-            string offeringJson = File.ReadAllText("templates/offering_items.json");
+            string offeringJson = File.ReadAllText("../../../templates/offering_items.json");
 
             OfferingItems offeringItems = new OfferingItems();
             offeringItems = JsonConvert.DeserializeObject<OfferingItems>(offeringJson);
@@ -98,7 +98,7 @@ namespace AcronisCyberCloudAPI
             string putData = JsonConvert.SerializeObject(offeringItems);
             offeringItems.EnableOfferingItems(username, password, createdTenant.id, putData);
 
-            string newPartnerUser = File.ReadAllText("templates/user.json");
+            string newPartnerUser = File.ReadAllText("../../../templates/user.json");
 
             User partnerUser = new User();
             partnerUser = JsonConvert.DeserializeObject<User>(newPartnerUser);
@@ -110,7 +110,7 @@ namespace AcronisCyberCloudAPI
             UserInfo createdPartnerUser = new UserInfo();
             createdPartnerUser = JsonConvert.DeserializeObject<UserInfo>(partnerUserInfo);
 
-            string newPartnerRole = File.ReadAllText("templates/user_roles.json");
+            string newPartnerRole = File.ReadAllText("../../../templates/user_roles.json");
 
             Roles partnerUserRole = new Roles();
             partnerUserRole = JsonConvert.DeserializeObject<Roles>(newPartnerRole);
@@ -140,7 +140,7 @@ namespace AcronisCyberCloudAPI
 
             offeringItems.EnableOfferingItems(username, password, createdTenant.id, activatedOfferingItems);
 
-            string newBackupUser = File.ReadAllText("templates/backup_user.json");
+            string newBackupUser = File.ReadAllText("../../../templates/backup_user.json");
 
             User backupUser = new User();
             backupUser = JsonConvert.DeserializeObject<User>(newBackupUser);
