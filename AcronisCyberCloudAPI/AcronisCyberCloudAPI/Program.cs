@@ -31,7 +31,7 @@ namespace AcronisCyberCloudAPI
             string adminUserInfo = adminUser.GetAdminUserInfo(username, password);
             adminUser = JsonConvert.DeserializeObject<AdminUser>(adminUserInfo);
 
-            // Get the root tenant id from the admin user info.
+            // Get the root tenant uuid from the admin user info.
             string rootTenantId = adminUser.tenant_id;
 
             // Get the information for the root tenant of the Cloud instance.
